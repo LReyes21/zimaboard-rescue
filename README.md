@@ -1,58 +1,143 @@
-Zimaboard Rescue Playbook
+# ZimaBoard Rescue Template
 
-This repository contains notes, scripts, and diagnostics collected during a live rescue session for a ZimaBoard 832 where the device dropped from WiFi and required recovery via USB-C Ethernet.
+[![CI](https://github.com/LReyes21/zimaboard-rescue/actions/workflows/ci.yml/badge.svg)](https://github.com/LReyes21/zimaboard-rescue/actions/workflows/ci.yml)
+[![Pages](https://github.com/LReyes21/zimaboard-rescue/actions/workflows/pages.yml/badge.svg)](https://github.com/LReyes21/zimaboard-rescue/actions/workflows/pages.yml)
+[![Dashboard](https://img.shields.io/badge/Dashboard-Live-blue)](https://lreyes21.github.io/zimaboard-rescue/)
 
-Structure:
-- README.md - this file
-- REPORT.md - timeline, root cause analysis, and recommended fixes
-- scripts/
-  - rescue_dhcp.sh - start a temporary DHCP server on a laptop to give the board an IP
-  - collect_diagnostics.sh - collect UEFI/boot/firmware and network diagnostics from a running board
-  - fix_boot_order.sh - set UEFI BootOrder to prefer Ubuntu, make GRUB visible, reinstall EFI bootloader
+A comprehensive template for documenting and automating rescue procedures for ZimaBoard devices, with automated dashboard generation and CI/CD pipeline.
 
-Usage notes:
-- Run scripts as root or using sudo.
-- Use `collect_diagnostics.sh` to gather logs before and after any changes.
-- `rescue_dhcp.sh` binds a DHCP server to the USB-C Ethernet adapter and should be stopped when finished.
+## 🚀 Features
 
-# zimaboard-rescue (template)
+- **Automated Rescue Scripts**: USB-C Ethernet recovery, DHCP server setup, and boot repair
+- **Interactive Dashboard**: Live HTML dashboard showing rescue records and timeline
+- **Template Repository**: Easy to use as a GitHub template for your own rescue scenarios
+- **CI/CD Pipeline**: Automated linting, testing, and GitHub Pages deployment
+- **Comprehensive Documentation**: Step-by-step playbooks and troubleshooting guides
 
-![CI](https://github.com/LReyes21/zimaboard-rescue/actions/workflows/ci.yml/badge.svg)
-![Pages](https://github.com/LReyes21/zimaboard-rescue/actions/workflows/pages.yml/badge.svg)
+## 📊 Live Dashboard
 
-This repository is a proof-of-concept rescue & experiment template.
+View the live dashboard at: **https://lreyes21.github.io/zimaboard-rescue/**
 
-Useful links
-- Repository: https://github.com/LReyes21/zimaboard-rescue
-- GitHub Pages (dashboard): https://lreyes21.github.io/zimaboard-rescue/  # may take a minute after first deploy
+The dashboard automatically updates with each repository change and shows:
+- Rescue session records with timestamps
+- Device information and network details
+- Links to detailed incident reports
 
-Use as a template
-- In the GitHub web UI click "Use this template" to create a new project repo.
-- Or create from the CLI (after `gh auth login`) with:
+## 🛠️ Quick Start
 
-```bash
-gh repo create YOURUSER/zimaboard-rescue-example --template LReyes21/zimaboard-rescue --public
-```
+### Use as Template
 
-Quick start
-1. Install dependencies for development:
-  - Python 3.11+ and pip
-  - Shell utilities: bash, dnsmasq (if using rescue DHCP), shellcheck (for linting)
-2. Generate a record:
+Create your own rescue repository:
 
 ```bash
-python3 scripts/add_record.py --source Zimaboard --type diagnostic --summary "Example" --details-file diagnostics/remote_privileged.txt
+# Via GitHub CLI
+gh repo create YOUR-USERNAME/my-rescue-repo --template LReyes21/zimaboard-rescue --public
+
+# Or click "Use this template" on GitHub
 ```
 
-3. Generate the dashboard locally:
+### Local Development
 
-```bash
-python3 scripts/generate_dashboard.py
-# open dashboard/index.html
+1. **Clone and setup**:
+   ```bash
+   git clone https://github.com/YOUR-USERNAME/your-rescue-repo.git
+   cd your-rescue-repo
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   # Ubuntu/Debian
+   sudo apt update
+   sudo apt install python3 python3-pip shellcheck dnsmasq
+
+   # Python packages
+   pip3 install flake8
+   ```
+
+3. **Initialize project**:
+   ```bash
+   python3 scripts/add_record.py --init-project
+   ```
+
+4. **Add your first rescue record**:
+   ```bash
+   python3 scripts/add_record.py \
+     --source "my-device" \
+     --type "network-issue" \
+     --summary "Device lost WiFi connection" \
+     --details "Device became unreachable, used USB-C Ethernet for recovery"
+   ```
+
+5. **Generate dashboard**:
+   ```bash
+   python3 scripts/generate_dashboard.py
+   # View: open dashboard/index.html in browser
+   ```
+
+## 📚 Documentation
+
+| Document | Description |
+|----------|-------------|
+| [PLAYBOOK.md](PLAYBOOK.md) | Step-by-step rescue procedures |
+| [docs/incident-analysis.md](docs/incident-analysis.md) | Detailed analysis from real rescue session |
+| [docs/device-inventory.md](docs/device-inventory.md) | Device MACs, IPs, and hardware references |
+| [CHANGELOG.md](CHANGELOG.md) | Version history and updates |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | How to contribute improvements |
+
+## 🔧 Available Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `rescue_dhcp.sh` | Start temporary DHCP server via USB-C Ethernet |
+| `collect_diagnostics.sh` | Gather system diagnostics remotely |
+| `fix_boot_order.sh` | Repair UEFI boot order and GRUB configuration |
+| `add_record.py` | Add rescue session records to database |
+| `generate_dashboard.py` | Create HTML dashboard from records |
+
+## 🏗️ Repository Structure
+
+```
+├── scripts/           # Rescue automation scripts
+├── dashboard/         # Generated HTML dashboard (auto-created)
+├── data/             # SQLite database for rescue records
+├── diagnostics/      # Collected system diagnostics
+├── template/         # Templates for new rescue repos
+├── .github/workflows/ # CI/CD automation
+└── docs/             # Additional documentation
 ```
 
-Publishing
-- The repo is configured as a GitHub template and has a Pages workflow that publishes `dashboard/` to GitHub Pages.
+## 🚨 Emergency Rescue Procedure
 
-Contributing
-- CI runs shellcheck and flake8; fix lint errors before opening a PR.
+1. **Physical Connection**: Connect laptop to ZimaBoard via USB-C Ethernet adapter
+2. **Network Setup**: Run `sudo scripts/rescue_dhcp.sh` to provide DHCP
+3. **Diagnostics**: Use `scripts/collect_diagnostics.sh` to gather system info
+4. **Boot Repair**: Apply `scripts/fix_boot_order.sh` if needed
+5. **Documentation**: Record session with `scripts/add_record.py`
+
+See [PLAYBOOK.md](PLAYBOOK.md) for detailed procedures.
+
+## 🔄 Automation
+
+The repository includes GitHub Actions workflows:
+
+- **CI Pipeline**: Lints scripts, runs smoke tests
+- **Pages Deployment**: Automatically deploys dashboard to GitHub Pages
+- **Template Validation**: Ensures repository works as a template
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/improvement`
+3. Make changes and run tests: `python3 scripts/generate_dashboard.py`
+4. Commit with clear messages: `git commit -m "Add: new rescue feature"`
+5. Push and create a Pull Request
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🏷️ Tags
+
+`zimaboard` `rescue` `recovery` `network` `automation` `template` `dashboard` `github-pages`

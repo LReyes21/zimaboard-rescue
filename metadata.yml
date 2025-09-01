@@ -1,31 +1,11 @@
-device:
-  model: ZimaBoard 832
-  vendor: ZimaSpace
-  bios_version: "5.12"
-  bios_vendor: "American Megatrends Inc."
-  notes: "Collected during 2025-08-31 rescue session"
-network:
-  known_wifi:
-    ssid: "<YOUR_WIFI_SSID>"
+# metadata.yml template for project repos
+
+project_name: "<project-name>"
+created: "<YYYY-MM-DD>"
+owner: "<owner-name>"
+devices:
+  - name: "zimaboard-832"
+    wifi_mac: "dc:97:ba:3c:31:c9"
     last_known_ip: "192.168.0.147"
-  interfaces:
-    - name: wlp1s0
-      role: wifi
-      mac: dc:97:ba:3c:31:c9
-      last_ip: 192.168.0.147
-    - name: enx9cebe869e600
-      role: usb_ethernet_adapter (laptop)
-      mac: 9c:eb:e8:69:e6:00
-    - name: wlp0s20f3
-      role: laptop_wifi
-      mac: dc:21:5c:30:08:04
-router:
-  ip: 192.168.0.1
-  mac: 1c:3b:f3:78:7f:b8
-rescue:
-  last_power_cycle: "2025-08-31"
-  rescue_scripts:
-    - scripts/rescue_dhcp.sh
-    - scripts/collect_diagnostics.sh
-    - scripts/fix_boot_order.sh
-  notes: "Use this file for automated decisions and quick lookups by human or agent."
+notes: |
+  Short notes about the project and important IDs.
