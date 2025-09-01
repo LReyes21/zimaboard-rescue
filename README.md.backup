@@ -1,6 +1,15 @@
 # ZimaBoard Rescue Template
 
-[![CI](https://github.com/LReyes21/zimaboard-rescue/actions/workflows/ci.yml/badge.svg)](https://github.com/LReyes21/zimaboard-rescue/actions/workflows/ci.yml)
+[![CI](https://github.com/LReyes21/zimaboard-rescue/actions/workflows/ci.5. **Add your first rescue record**:
+   ```bash
+   python3 scripts/add_record.py \
+     --source "my-device" \
+     --type "network-issue" \
+     --summary "Device lost WiFi connection" \
+     --details "Device became unreachable, used USB-C Ethernet for recovery"
+   ```
+
+6. **Generate dashboard**:svg)](https://github.com/LReyes21/zimaboard-rescue/actions/workflows/ci.yml)
 [![Pages](https://github.com/LReyes21/zimaboard-rescue/actions/workflows/pages.yml/badge.svg)](https://github.com/LReyes21/zimaboard-rescue/actions/workflows/pages.yml)
 [![Dashboard](https://img.shields.io/badge/Dashboard-Live-blue)](https://lreyes21.github.io/zimaboard-rescue/)
 
@@ -99,15 +108,46 @@ gh repo create YOUR-USERNAME/my-rescue-repo --template LReyes21/zimaboard-rescue
 
 ### Local Development
 
-1. **Clone your repository**:
+1. **Prerequisites Setup**:
+   
+   **Quick automated setup** (recommended):
    ```bash
    git clone https://github.com/YOUR-USERNAME/your-rescue-repo.git
    cd your-rescue-repo
+   sudo scripts/setup-prerequisites.sh
+   ```
+   
+   **Manual setup**:
+   ```bash
+   # System packages (Ubuntu 20.04+ / Debian 11+)
+   sudo apt update
+   sudo apt install -y \
+     python3 python3-dev python3-pip python3-venv \
+     shellcheck \
+     dnsmasq \
+     git \
+     curl \
+     tcpdump \
+     arping \
+     nmap \
+     ethtool \
+     net-tools \
+     iputils-ping
+
+   # Python linting tools
+   sudo apt install -y python3-flake8
+
+   # Optional: GitHub CLI for easier repository management
+   curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+   echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+   sudo apt update
+   sudo apt install gh
    ```
 
-2. **Setup prerequisites** (if not done already):
+2. **Clone and setup**:
    ```bash
-   sudo scripts/setup-prerequisites.sh
+   git clone https://github.com/YOUR-USERNAME/your-rescue-repo.git
+   cd your-rescue-repo
    ```
 
 3. **Verify installation**:
@@ -115,22 +155,31 @@ gh repo create YOUR-USERNAME/my-rescue-repo --template LReyes21/zimaboard-rescue
    scripts/verify-setup.sh
    ```
 
-4. **Configure your environment**:
+3. **Verify installation**:
    ```bash
-   # Edit device information
-   vim metadata.yml
+   scripts/verify-setup.sh
    ```
 
-5. **Initialize project**:
+4. **Initialize project**:
+   ```bash
+   python3 scripts/add_record.py --init-project
+   ```
+
+4. **Initialize project**:
+   ```bash
+   python3 scripts/add_record.py --init-project
+   ```
+
+5. **Add your first rescue record**:
    ```bash
    python3 scripts/add_record.py \
      --source "my-device" \
-     --type "setup" \
-     --summary "Repository initialized" \
-     --details "Created rescue repository from template"
+     --type "network-issue" \
+     --summary "Device lost WiFi connection" \
+     --details "Device became unreachable, used USB-C Ethernet for recovery"
    ```
 
-6. **Generate dashboard**:
+5. **Generate dashboard**:
    ```bash
    python3 scripts/generate_dashboard.py
    # View: open dashboard/index.html in browser
@@ -150,8 +199,6 @@ gh repo create YOUR-USERNAME/my-rescue-repo --template LReyes21/zimaboard-rescue
 
 | Script | Purpose |
 |--------|---------|
-| `setup-prerequisites.sh` | **Automated setup** - Install all dependencies |
-| `verify-setup.sh` | **Verification** - Test all installations and functionality |
 | `rescue_dhcp.sh` | Start temporary DHCP server via USB-C Ethernet |
 | `collect_diagnostics.sh` | Gather system diagnostics remotely |
 | `fix_boot_order.sh` | Repair UEFI boot order and GRUB configuration |
@@ -192,60 +239,11 @@ The repository includes GitHub Actions workflows:
 
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature/improvement`
-3. Make changes and run tests: `scripts/verify-setup.sh`
+3. Make changes and run tests: `python3 scripts/generate_dashboard.py`
 4. Commit with clear messages: `git commit -m "Add: new rescue feature"`
 5. Push and create a Pull Request
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
-
-## 🔧 Troubleshooting
-
-### Common Setup Issues
-
-**"Command not found" errors:**
-```bash
-# Ensure prerequisites are installed
-sudo scripts/setup-prerequisites.sh
-
-# Verify installation
-scripts/verify-setup.sh
-```
-
-**Permission denied on scripts:**
-```bash
-# Make scripts executable
-chmod +x scripts/*.sh
-```
-
-**Python module import errors:**
-```bash
-# Check Python installation
-python3 --version
-python3 -c "import sqlite3; print('SQLite OK')"
-
-# Reinstall if needed
-sudo apt install python3 python3-dev
-```
-
-**Network tools not working:**
-```bash
-# Install missing network tools
-sudo apt install tcpdump arping nmap ethtool net-tools dnsmasq
-```
-
-**Dashboard not generating:**
-```bash
-# Check database exists and create if needed
-python3 scripts/add_record.py --source "test" --type "init" --summary "Setup test"
-python3 scripts/generate_dashboard.py
-```
-
-### Getting Help
-
-- 🐛 **Report bugs**: [GitHub Issues](https://github.com/LReyes21/zimaboard-rescue/issues)
-- 📖 **Documentation**: [PLAYBOOK.md](PLAYBOOK.md) for emergency procedures
-- 💬 **Discussions**: Use GitHub Discussions for questions
-- 🔧 **Verification**: Run `scripts/verify-setup.sh` for diagnostics
 
 ## 📄 License
 
