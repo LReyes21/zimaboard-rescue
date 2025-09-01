@@ -1,0 +1,18 @@
+# Playbook template
+
+Purpose: step-by-step rescue and experimentation playbook for a project.
+
+## Pre-flight
+- Identify device MACs and last-known IPs
+- Prepare USB-C ethernet adapter and rescue laptop
+
+## Rescue steps
+1. Connect laptop via USB-ethernet and run `scripts/rescue_dhcp.sh` (if needed)
+2. Attempt to SSH to last-known IP or mDNS name
+3. If unreachable, power-cycle device and watch for DHCP/ARP
+4. Collect diagnostics with `scripts/collect_diagnostics.sh`
+5. If boot ordering is incorrect, run `scripts/fix_boot_order.sh` (requires sudo)
+
+## Post-rescue
+- Record the rescue event in `data/records.db` using `scripts/add_record.py`
+- Run `scripts/generate_dashboard.py` to refresh dashboard

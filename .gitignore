@@ -1,0 +1,13 @@
+# data directory holds runtime DB and should be ignored by default
+/data/
+
+# dashboard output can be regenerated
+/dashboard/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# local editor files
+.vscode/
+*.swp

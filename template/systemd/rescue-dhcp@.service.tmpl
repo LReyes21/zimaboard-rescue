@@ -1,0 +1,11 @@
+[Unit]
+Description=Rescue DHCP service for interface %i
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/bin/bash -c 'exec /home/USER/Documents/Repositories/zimaboard-rescue/scripts/rescue_dhcp.sh %i'
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
