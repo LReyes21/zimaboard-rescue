@@ -1,0 +1,121 @@
+Welcome to Ubuntu 24.04.3 LTS (GNU/Linux 6.8.0-78-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ * Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s
+   just raised the bar for easy, resilient and secure K8s cluster deployment.
+
+   https://ubuntu.com/engage/secure-kubernetes-at-the-edge
+
+Expanded Security Maintenance for Applications is not enabled.
+
+0 updates can be applied immediately.
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+
+The list of available updates is more than a week old.
+To check for new updates run: sudo apt update
+
+total 16
+drwxr-xr-x 4 root root 4096 Jul 30 10:59 .
+drwxr-xr-x 3 root root 4096 Dec 31  1969 ..
+drwxr-xr-x 2 root root 4096 Jul 30 10:59 BOOT
+drwxr-xr-x 2 root root 4096 Jul 30 10:59 ubuntu
+# If you change this file, run 'update-grub' afterwards to update
+# /boot/grub/grub.cfg.
+# For full documentation of the options in this file, see:
+#   info -f grub -n 'Simple configuration'
+
+GRUB_DEFAULT=0
+GRUB_TIMEOUT_STYLE=menu
+GRUB_TIMEOUT=5
+GRUB_DISTRIBUTOR=`( . /etc/os-release; echo ${NAME:-Ubuntu} ) 2>/dev/null || echo Ubuntu`
+GRUB_CMDLINE_LINUX_DEFAULT=""
+GRUB_CMDLINE_LINUX=""
+
+# If your computer has multiple operating systems installed, then you
+# probably want to run os-prober. However, if your computer is a host
+# for guest OSes installed via LVM or raw disk devices, running
+# os-prober can cause damage to those guest OSes as it mounts
+# filesystems to look for things.
+#GRUB_DISABLE_OS_PROBER=false
+
+# Uncomment to enable BadRAM filtering, modify to suit your needs
+# This works with Linux (no patch required) and with any kernel that obtains
+# the memory map information from GRUB (GNU Mach, kernel of FreeBSD ...)
+#GRUB_BADRAM="0x01234567,0xfefefefe,0x89abcdef,0xefefefef"
+
+# Uncomment to disable graphical terminal
+#GRUB_TERMINAL=console
+
+# The resolution used on graphical terminal
+# note that you can use only modes which your graphic card supports via VBE
+# you can see them in real GRUB with the command `vbeinfo'
+#GRUB_GFXMODE=640x480
+
+# Uncomment if you don't want GRUB to pass "root=UUID=xxx" parameter to Linux
+#GRUB_DISABLE_LINUX_UUID=true
+
+# Uncomment to disable generation of recovery mode menu entries
+#GRUB_DISABLE_RECOVERY="true"
+
+# Uncomment to get a beep at grub start
+#GRUB_INIT_TUNE="480 440 1"
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enp2s0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc fq_codel state DOWN group default qlen 1000
+    link/ether 00:e0:4c:17:81:da brd ff:ff:ff:ff:ff:ff
+3: enp3s0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc fq_codel state DOWN group default qlen 1000
+    link/ether 00:e0:4c:17:81:d5 brd ff:ff:ff:ff:ff:ff
+4: wlp1s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether dc:97:ba:3c:31:c9 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.0.147/24 brd 192.168.0.255 scope global dynamic noprefixroute wlp1s0
+       valid_lft 6557sec preferred_lft 6557sec
+    inet6 fe80::442a:1b4e:3c14:a6cd/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+5: br-28658be93172: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default 
+    link/ether 8a:e8:5b:9a:b1:fd brd ff:ff:ff:ff:ff:ff
+    inet 172.21.0.1/16 brd 172.21.255.255 scope global br-28658be93172
+       valid_lft forever preferred_lft forever
+    inet6 fe80::88e8:5bff:fe9a:b1fd/64 scope link 
+       valid_lft forever preferred_lft forever
+6: br-b61a6a1fee8d: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default 
+    link/ether 16:cc:7b:b5:84:14 brd ff:ff:ff:ff:ff:ff
+    inet 172.19.0.1/16 brd 172.19.255.255 scope global br-b61a6a1fee8d
+       valid_lft forever preferred_lft forever
+    inet6 fe80::14cc:7bff:feb5:8414/64 scope link 
+       valid_lft forever preferred_lft forever
+7: docker0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default 
+    link/ether 46:74:0d:f3:7a:f3 brd ff:ff:ff:ff:ff:ff
+    inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::4474:dff:fef3:7af3/64 scope link 
+       valid_lft forever preferred_lft forever
+8: veth9129673@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master docker0 state UP group default 
+    link/ether 76:c2:84:4e:d9:03 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+    inet6 fe80::74c2:84ff:fe4e:d903/64 scope link 
+       valid_lft forever preferred_lft forever
+9: veth3453307@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master docker0 state UP group default 
+    link/ether be:e0:71:5f:4d:3d brd ff:ff:ff:ff:ff:ff link-netnsid 1
+    inet6 fe80::bce0:71ff:fe5f:4d3d/64 scope link 
+       valid_lft forever preferred_lft forever
+11: veth6a27742@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master br-28658be93172 state UP group default 
+    link/ether da:f4:d4:a5:07:9b brd ff:ff:ff:ff:ff:ff link-netnsid 3
+    inet6 fe80::d8f4:d4ff:fea5:79b/64 scope link 
+       valid_lft forever preferred_lft forever
+192.168.0.223 dev wlp1s0 lladdr b0:2a:43:66:34:ec REACHABLE 
+192.168.0.229 dev wlp1s0 lladdr 38:9d:92:b2:10:fa STALE 
+192.168.0.177 dev wlp1s0 lladdr dc:21:5c:30:08:04 REACHABLE 
+172.21.0.2 dev br-28658be93172 lladdr 8a:4d:43:d0:b6:d3 STALE 
+192.168.0.1 dev wlp1s0 lladdr 1c:3b:f3:78:7f:b8 REACHABLE 
+192.168.0.168 dev wlp1s0 lladdr 68:54:5a:06:b6:48 STALE 
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
