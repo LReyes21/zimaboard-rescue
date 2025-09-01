@@ -43,7 +43,7 @@ def ensure_db():
 
 
 def add_record(conn, source, rtype, summary, details):
-    ts = datetime.datetime.utcnow().isoformat() + 'Z'
+    ts = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     cur = conn.cursor()
     cur.execute('INSERT INTO records (ts, source, type, summary, details) VALUES (?, ?, ?, ?, ?)',
                 (ts, source, rtype, summary, details))
