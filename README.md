@@ -136,6 +136,27 @@ gh repo create YOUR-USERNAME/my-rescue-repo --template LReyes21/zimaboard-rescue
    # View: open dashboard/index.html in browser
    ```
 
+### VS Code Development Environment
+
+Set up a complete VS Code development environment with container support and remote access:
+
+```bash
+# Transfer and run setup script on your device
+scp scripts/setup-vscode-dev-environment.sh user@your-device:~/
+ssh user@your-device
+chmod +x setup-vscode-dev-environment.sh
+./setup-vscode-dev-environment.sh
+```
+
+**Features included**:
+- 🌐 **Web-based VS Code**: Access from any browser at `http://device-ip:8080`
+- 🐳 **Container Development**: Pre-configured devcontainer templates
+- 🐙 **GitHub Integration**: CLI tools and VS Code extensions
+- 🎨 **Dracula Theme**: Professional dark theme with JetBrains Mono font
+- 🔧 **Development Tools**: Python, Docker, Git, and essential extensions
+
+See [📖 VS Code Development Setup](docs/vscode-development-setup.md) for detailed instructions.
+
 ## 📚 Documentation
 
 | Document | Description |
