@@ -19,10 +19,11 @@ fi
 echo "Ubuntu entry = $UBUNTU_BOOT"
 # Construct new order: ubuntu, then others
 OTHERS=$(efibootmgr | grep BootOrder | sed 's/BootOrder: //' | tr -d '\n' | sed 's/,$//' )
-NEWORDER="$UBUNTU_BOOT,$(echo $OTHERS | sed "s/$UBUNTU_BOOT,//g")"
+# remove UBUNTU_BOOT from OTHERS using parameter expansion instead of sed
+NEWORDER="$UBUNTU_BOOT,${OTHERS//$UBUNTU_BOOT,/}"
 
 echo "Setting BootOrder to $NEWORDER"
-efibootmgr -o $NEWORDER || true
+efibootmgr -o "$NEWORDER" || true
 
 echo "Making GRUB menu visible (timeout=5)"
 sed -i 's/GRUB_TIMEOUT_STYLE=hidden/GRUB_TIMEOUT_STYLE=menu/' /etc/default/grub || true

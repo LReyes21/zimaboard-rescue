@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Generate a simple HTML dashboard from the SQLite records DB.
-Produces `dashboard/index.html` and per-record markdown files under `dashboard/entries/`.
+This is intentionally small and uses consistent 4-space indentation.
 """
 import os
 import sqlite3
@@ -10,37 +10,55 @@ DB_PATH = os.path.join(REPO_ROOT, 'data', 'records.db')
 DASH_DIR = os.path.join(REPO_ROOT, 'dashboard')
 ENT_DIR = os.path.join(DASH_DIR, 'entries')
 
-HTML_TMPL = '''<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Rescue Repo Dashboard</title>
-  <style>
-    body{font-family:system-ui,Segoe UI,Roboto,Arial;margin:2rem}
-    table{border-collapse:collapse;width:100%}
-    th,td{border:1px solid #ddd;padding:8px}
-    th{background:#f2f2f2}
-  </style>
-</head>
-<body>
-  <h1>Rescue Repo Dashboard</h1>
-  <p>Generated from <code>data/records.db</code></p>
-  <h2>Summary</h2>
-  <ul>
-    <li>Total records: {{total}}</li>
-  </ul>
-  <h2>Recent entries</h2>
-  <table>
-    <thead><tr><th>ID</th><th>Timestamp</th><th>Source</th><th>Type</th><th>Summary</th></tr></thead>
-    <tbody>
-    {{rows}}
-    </tbody>
-  </table>
-</body>
-</html>
-'''
+HTML_TMPL = "\n".join([
+    '<!doctype html>',
+    '<html>',
+    '<head>',
+    '  <meta charset="utf-8">',
+    '  <title>Rescue Repo Dashboard</title>',
+    '  <style>',
+    '    body{font-family:system-ui,Segoe UI,Roboto,Arial;margin:2rem}',
+    '    table{border-collapse:collapse;width:100%}',
+    '    th,td{border:1px solid #ddd;padding:8px}',
+    '    th{background:#f2f2f2}',
+    '  </style>',
+    '</head>',
+    '<body>',
+    '  <h1>Rescue Repo Dashboard</h1>',
+    '  <p>Generated from <code>data/records.db</code></p>',
+    '  <h2>Summary</h2>',
+    '  <ul>',
+    '    <li>Total records: {{total}}</li>',
+    '  </ul>',
+    '  <h2>Recent entries</h2>',
+    '  <table>',
+    '    <thead>',
+    '      <tr>',
+    '        <th>ID</th>',
+    '        <th>Timestamp</th>',
+    '        <th>Source</th>',
+    '        <th>Type</th>',
+    '        <th>Summary</th>',
+    '      </tr>',
+    '    </thead>',
+    '    <tbody>',
+    '    {{rows}}',
+    '    </tbody>',
+    '  </table>',
+    '</body>',
+    '</html>',
+    '',
+])
 
-ROW_TMPL = '<tr><td><a href="entries/{id}.md">{id}</a></td><td>{ts}</td><td>{source}</td><td>{type}</td><td>{summary}</td></tr>'
+ROW_TMPL = "".join([
+    '<tr>',
+    '<td><a href="entries/{id}.md">{id}</a></td>',
+    '<td>{ts}</td>',
+    '<td>{source}</td>',
+    '<td>{type}</td>',
+    '<td>{summary}</td>',
+    '</tr>',
+])
 
 
 def read_records():
@@ -48,7 +66,10 @@ def read_records():
         return []
     conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
-    cur.execute('SELECT id, ts, source, type, summary, details FROM records ORDER BY id DESC')
+    cur.execute(
+        'SELECT id, ts, source, type, summary, details FROM records '
+        'ORDER BY id DESC'
+    )
     rows = cur.fetchall()
     conn.close()
     return rows
@@ -77,9 +98,23 @@ def generate():
     ensure_dirs()
     rows = read_records()
     total = len(rows)
-    rows_html = '\n'.join(ROW_TMPL.format(id=r[0], ts=r[1], source=r[2] or '', type=r[3] or '', summary=(r[4] or '').replace('<', '&lt;')) for r in rows[:50])
 
-    # write per-entry files
+    parts = []
+    for r in rows[:50]:
+        rid, rts, rsource, rtype, rsummary, _ = r
+        safe_summary = (rsummary or '').replace('<', '&lt;')
+        parts.append(
+            ROW_TMPL.format(
+                id=rid,
+                ts=rts,
+                source=rsource or '',
+                type=rtype or '',
+                summary=safe_summary,
+            )
+        )
+
+    rows_html = '\n'.join(parts)
+
     for r in rows:
         write_entry_file(r)
 

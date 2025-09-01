@@ -2,8 +2,14 @@
 """Add a timestamped record to the repo-local SQLite database.
 
 Usage examples:
-  python3 scripts/add_record.py --source Zimaboard --type diagnostic --summary "Boot fixed" --details "Edited GRUB" 
-  python3 scripts/add_record.py --source Zimaboard --type diagnostic --summary "Privileged diagnostics" --details-file diagnostics/remote_privileged.txt
+    python3 scripts/add_record.py \
+        --source Zimaboard --type diagnostic --summary "Boot fixed" \
+        --details "Edited GRUB"
+
+    python3 scripts/add_record.py \
+        --source Zimaboard --type diagnostic \
+        --summary "Privileged diagnostics" \
+        --details-file diagnostics/remote_privileged.txt
 """
 
 import argparse
@@ -51,10 +57,22 @@ def main():
     p.add_argument('--type', dest='rtype', required=False, default='note')
     p.add_argument('--summary', required=True)
     p.add_argument('--details', required=False, help='Details text')
-    p.add_argument('--details-file', required=False, help='Path to a file whose contents will be stored as details')
-    p.add_argument('--init-project', action='store_true', help='Initialize a metadata.yml from template if present')
-    p.add_argument('--project-name', required=False, help='Project name used when initializing metadata')
-    p.add_argument('--owner', required=False, help='Owner name used when initializing metadata')
+    p.add_argument(
+        '--details-file', required=False,
+        help='Path to a file whose contents will be stored as details'
+    )
+    p.add_argument(
+        '--init-project', action='store_true',
+        help='Initialize a metadata.yml from template if present'
+    )
+    p.add_argument(
+        '--project-name', required=False,
+        help='Project name used when initializing metadata'
+    )
+    p.add_argument(
+        '--owner', required=False,
+        help='Owner name used when initializing metadata'
+    )
     args = p.parse_args()
 
     details = ''
@@ -80,7 +98,9 @@ def main():
                 name = args.project_name or '<project-name>'
                 owner = args.owner or '<owner-name>'
                 created = datetime.datetime.utcnow().date().isoformat()
-                out = tpl.replace('<project-name>', name).replace('<YYYY-MM-DD>', created).replace('<owner-name>', owner)
+                out = tpl.replace('<project-name>', name)
+                out = out.replace('<YYYY-MM-DD>', created)
+                out = out.replace('<owner-name>', owner)
                 with open(METADATA_OUT, 'w') as f:
                     f.write(out)
                 print(f'Wrote metadata.yml to {METADATA_OUT}')
