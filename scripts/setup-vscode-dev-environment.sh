@@ -57,7 +57,7 @@ check_system() {
     log_info "Architecture: $ARCH"
     
     # Check if we have sudo access
-    if ! sudo -v; then
+    if ! sudo echo "Testing sudo access..." >/dev/null 2>&1; then
         log_error "This script requires sudo access"
         exit 1
     fi
