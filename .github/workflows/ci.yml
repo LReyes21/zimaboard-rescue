@@ -2,37 +2,71 @@ name: CI
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
 
 jobs:
   lint-and-smoke:
     name: Lint scripts and smoke test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      name: CI
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
+      on:
+        push:
+          branches: [ main ]
+        pull_request:
+          branches: [ main ]
 
-      - name: Check shell scripts for syntax
-        run: |
-          set -e
-          shopt -s nullglob
-          for f in scripts/*.sh; do
-            echo "Checking $f"
-            bash -n "$f"
-          done
+      jobs:
+        lint-and-smoke:
+          name: Lint scripts and smoke test
+          runs-on: ubuntu-latest
+          steps:
+            - uses: actions/checkout@v4
 
-      - name: Check python files compile
-        run: |
-          set -e
-          python -m compileall -q scripts || true
+            - name: Set up Python
+              uses: actions/setup-python@v4
+              with:
+                python-version: '3.x'
 
-      - name: Run smoke: generate dashboard
-        run: |
-          set -e
-          python3 scripts/generate_dashboard.py
+            - name: Install dependencies (shellcheck, flake8)
+              run: |
+                sudo apt-get update
+                sudo apt-get install -y shellcheck
+                python -m pip install --upgrade pip
+                python -m pip install flake8
+
+            - name: Shellcheck scripts
+              run: |
+                set -e
+                shopt -s nullglob || true
+                for f in scripts/*.sh; do
+                  echo "shellcheck $f"
+                  shellcheck "$f" || true
+                done
+
+            - name: Python lint (flake8)
+              run: |
+                set -e
+                python -m flake8 scripts || true
+
+            - name: Check shell scripts for syntax
+              run: |
+                set -e
+                shopt -s nullglob || true
+                for f in scripts/*.sh; do
+                  echo "Checking $f"
+                  bash -n "$f" || true
+                done
+
+            - name: Check python files compile
+              run: |
+                set -e
+                python -m compileall -q scripts || true
+
+            - name: Run smoke: generate dashboard
+              run: |
+                set -e
+                python3 scripts/generate_dashboard.py
