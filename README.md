@@ -15,4 +15,33 @@ Usage notes:
 - Use `collect_diagnostics.sh` to gather logs before and after any changes.
 - `rescue_dhcp.sh` binds a DHCP server to the USB-C Ethernet adapter and should be stopped when finished.
 
-License: MIT
+## zimaboard-rescue (template)
+
+This repository is a proof-of-concept rescue & experiment template.
+
+Useful links
+- Repository: https://github.com/LReyes21/zimaboard-rescue
+- GitHub Pages (dashboard): https://lreyes21.github.io/zimaboard-rescue/  # may take a minute after first deploy
+
+Quick start
+1. Install dependencies for development:
+  - Python 3.11+ and pip
+  - Shell utilities: bash, dnsmasq (if using rescue DHCP), shellcheck (for linting)
+2. Generate a record:
+
+```bash
+python3 scripts/add_record.py --source Zimaboard --type diagnostic --summary "Example" --details-file diagnostics/remote_privileged.txt
+```
+
+3. Generate the dashboard locally:
+
+```bash
+python3 scripts/generate_dashboard.py
+# open dashboard/index.html
+```
+
+Publishing
+- The repo is configured as a GitHub template and has a Pages workflow that publishes `dashboard/` to GitHub Pages.
+
+Contributing
+- CI runs shellcheck and flake8; fix lint errors before opening a PR.
