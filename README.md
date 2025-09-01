@@ -15,13 +15,24 @@ Usage notes:
 - Use `collect_diagnostics.sh` to gather logs before and after any changes.
 - `rescue_dhcp.sh` binds a DHCP server to the USB-C Ethernet adapter and should be stopped when finished.
 
-## zimaboard-rescue (template)
+# zimaboard-rescue (template)
+
+![CI](https://github.com/LReyes21/zimaboard-rescue/actions/workflows/ci.yml/badge.svg)
+![Pages](https://github.com/LReyes21/zimaboard-rescue/actions/workflows/pages.yml/badge.svg)
 
 This repository is a proof-of-concept rescue & experiment template.
 
 Useful links
 - Repository: https://github.com/LReyes21/zimaboard-rescue
 - GitHub Pages (dashboard): https://lreyes21.github.io/zimaboard-rescue/  # may take a minute after first deploy
+
+Use as a template
+- In the GitHub web UI click "Use this template" to create a new project repo.
+- Or create from the CLI (after `gh auth login`) with:
+
+```bash
+gh repo create YOURUSER/zimaboard-rescue-example --template LReyes21/zimaboard-rescue --public
+```
 
 Quick start
 1. Install dependencies for development:
