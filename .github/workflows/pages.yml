@@ -19,9 +19,14 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Generate dashboard
+      - name: Seed database and generate dashboard
         run: |
           set -e
+          # Create a demo record for the dashboard
+          python3 scripts/add_record.py --source "github-pages" --type "demo" --summary "GitHub Pages Dashboard Demo" --details "This dashboard is automatically deployed from the main branch using GitHub Actions. It demonstrates the rescue repository template functionality."
+          # Add another demo record
+          python3 scripts/add_record.py --source "automation" --type "ci-cd" --summary "Automated Deployment Success" --details "The CI/CD pipeline successfully builds and deploys this dashboard, showing that all scripts pass linting and the template is working correctly."
+          # Generate the dashboard with demo data
           python3 scripts/generate_dashboard.py
 
       - name: Deploy to gh-pages (peaceiris)
