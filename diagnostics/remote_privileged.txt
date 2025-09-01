@@ -1,0 +1,103 @@
+[sudo] password for luis: 
+BootCurrent: 0000
+Timeout: 1 seconds
+BootOrder: 0000,0004,0003
+Boot0000* Ubuntu	HD(1,GPT,39abebf0-547a-48d2-9625-59c5f97c51d5,0x800,0x219800)/File(\EFI\UBUNTU\SHIMX64.EFI)
+      dp: 04 01 2a 00 01 00 00 00 00 08 00 00 00 00 00 00 00 98 21 00 00 00 00 00 f0 eb ab 39 7a 54 d2 48 96 25 59 c5 f9 7c 51 d5 02 02 / 04 04 34 00 5c 00 45 00 46 00 49 00 5c 00 55 00 42 00 55 00 4e 00 54 00 55 00 5c 00 53 00 48 00 49 00 4d 00 58 00 36 00 34 00 2e 00 45 00 46 00 49 00 00 00 / 7f ff 04 00
+Boot0003* MMC - DV4032	BBS(HD,,0x0)0000424f
+      dp: 05 01 09 00 02 00 00 00 00 / 7f ff 04 00
+    data: 00 00 42 4f
+Boot0004* WD Blue SA510 2.5 1TB	BBS(HD,,0x0)0000424f
+      dp: 05 01 09 00 02 00 00 00 00 / 7f ff 04 00
+    data: 00 00 42 4f
+---
+# dmidecode 3.5
+Getting SMBIOS data from sysfs.
+SMBIOS 3.0.0 present.
+
+Handle 0x0000, DMI type 0, 24 bytes
+BIOS Information
+	Vendor: American Megatrends Inc.
+	Version: 5.12
+	Release Date: 07/26/2022
+	Address: 0xF0000
+	Runtime Size: 64 kB
+	ROM Size: 5 MB
+	Characteristics:
+		PCI is supported
+		BIOS is upgradeable
+		BIOS shadowing is allowed
+		Boot from CD is supported
+		Selectable boot is supported
+		BIOS ROM is socketed
+		EDD is supported
+		5.25"/1.2 MB floppy services are supported (int 13h)
+		3.5"/720 kB floppy services are supported (int 13h)
+		3.5"/2.88 MB floppy services are supported (int 13h)
+		Print screen service is supported (int 5h)
+		8042 keyboard services are supported (int 9h)
+		Serial services are supported (int 14h)
+		Printer services are supported (int 17h)
+		ACPI is supported
+		USB legacy is supported
+		BIOS boot specification is supported
+		Targeted content distribution is supported
+		UEFI is supported
+	BIOS Revision: 5.12
+
+Handle 0x0040, DMI type 13, 22 bytes
+BIOS Language Information
+	Language Description Format: Long
+	Installable Languages: 1
+		en|US|iso8859-1
+	Currently Installed Language: en|US|iso8859-1
+
+---
+Model: ATA WD Blue SA510 2. (scsi)
+Disk /dev/sda: 1000GB
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+Disk Flags: 
+
+Number  Start   End     Size    File system  Name     Flags
+ 1      17.4kB  1000GB  1000GB  ext4         primary
+
+
+Model: Linux device-mapper (linear) (dm)
+Disk /dev/mapper/ubuntu--vg-ubuntu--lv: 28.0GB
+Sector size (logical/physical): 512B/512B
+Partition Table: loop
+Disk Flags: 
+
+Number  Start  End     Size    File system  Flags
+ 1      0.00B  28.0GB  28.0GB  ext4
+
+
+Model: MMC DV4032 (sd/mmc)
+Disk /dev/mmcblk0: 31.3GB
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+Disk Flags: 
+
+Number  Start   End     Size    File system  Name  Flags
+ 1      1049kB  1128MB  1127MB  fat32              boot, esp
+ 2      1128MB  3276MB  2147MB  ext4
+ 3      3276MB  31.3GB  28.0GB
+
+
+Error: /dev/mmcblk0boot0: unrecognised disk label
+                                                                          Model: Generic SD/MMC Storage Card (sd/mmc)
+Disk /dev/mmcblk0boot0: 4194kB
+Sector size (logical/physical): 512B/512B
+Partition Table: unknown
+Disk Flags: 
+
+Error: /dev/mmcblk0boot1: unrecognised disk label
+                                                                          Model: Generic SD/MMC Storage Card (sd/mmc)
+Disk /dev/mmcblk0boot1: 4194kB
+Sector size (logical/physical): 512B/512B
+Partition Table: unknown
+Disk Flags: 
+
+---
+Connection to userver.local closed.
